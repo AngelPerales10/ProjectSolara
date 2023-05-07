@@ -12,3 +12,6 @@ An AI assistant that is also able to feed the media someone partakes in order to
 ### Additional Features:
 Audio Recordings saved to audio_inputs file to store audio data. 
 Future feature using this will include creating an AI bot that can use your voice based off this data that is being fed.
+
+## Steps To Set Up:
+Simply add your OpenAI API key from https://platform.openai.com/account/api-keys
