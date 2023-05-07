@@ -3,7 +3,7 @@ import pyttsx3
 import speech_recognition as sr
 import time
 
-#Set OpenAI API key
+#Set OpenAI API key goes here
 openai.api_key = ""
 
 # Initialize the text-to-speech engine
