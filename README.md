@@ -1,5 +1,5 @@
 # ProjectSolara
-An AI assistant that is fed by your data.
+An AI assistant that is fed entirely by your data.
 
 ## Current working features:
 
