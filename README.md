@@ -1,5 +1,5 @@
 # ProjectSolara
-An AI assistant that is also able to feed the media someone partakes in order to craft a personality that best fits the user. 
+An AI assistant that is fed by your data.
 
 ## Current working features:
 
