@@ -20,10 +20,11 @@ def transcribe_audio_to_text(filename):
     except:
         print('Skipping unknown error')
 
-def generate_response(prompt):
+def generate_response(prompt, conversation_history=[]):
+    prompt_with_history = '\n'.join(conversation_history + [prompt])
     response = openai.Completion.create(
         engine="text-davinci-003",
-        prompt=prompt,
+        prompt=prompt_with_history,
         max_tokens=4000,
         n=1,
         stop=None,
@@ -35,7 +36,22 @@ def speak_text(text):
     engine.say(text)
     engine.runAndWait()
 
+def save_conversation(prompt, response):
+    timestamp = time.strftime("%Y%m%d-%H%M%S")
+    filename = os.path.join("conversations", f"conversation_{timestamp}.txt")
+    with open(filename, "w") as file:
+        file.write("Prompt: {}\n".format(prompt))
+        file.write("Response: {}\n".format(response))
+    print("Conversation saved: {}".format(filename))
+
 def main():
+    # Create "conversations" directory if it doesn't exist
+    conversations_dir = "conversations"
+    if not os.path.exists(conversations_dir):
+        os.makedirs(conversations_dir)
+
+    conversation_history = []
+
     # Create "audio_inputs" directory if it doesn't exist
     audio_inputs_dir = "audio_inputs"
     if not os.path.exists(audio_inputs_dir):
@@ -66,7 +82,7 @@ def main():
                         print(f"You said: {text}")
 
                         # Generate Response using GPT-3
-                        response = generate_response(text)
+                        response = generate_response(text, conversation_history)
                         print(f"GPT-3 says: {response}")
 
                         # Read response using text-to-speech
@@ -77,6 +93,13 @@ def main():
                         new_filename = os.path.join(audio_inputs_dir, f"input_{timestamp}.wav")
                         shutil.copyfile(filename, new_filename)
                         print(f"Copy of input.wav created: {new_filename}")
+
+                        # Save conversation to a text file
+                        save_conversation(text, response)
+                        
+                        # Update conversation history
+                        conversation_history.append(text)
+                        conversation_history.append(response)
 
             except Exception as e:
                 print("An error occurred: {}".format(e))
