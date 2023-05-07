@@ -2,8 +2,10 @@ import openai
 import pyttsx3
 import speech_recognition as sr
 import time
+import shutil
+import os
 
-#Set OpenAI API key goes here
+# Set OpenAI API key goes here
 openai.api_key = ""
 
 # Initialize the text-to-speech engine
@@ -34,6 +36,11 @@ def speak_text(text):
     engine.runAndWait()
 
 def main():
+    # Create "audio_inputs" directory if it doesn't exist
+    audio_inputs_dir = "audio_inputs"
+    if not os.path.exists(audio_inputs_dir):
+        os.makedirs(audio_inputs_dir)
+
     while True:
         # Wait for user to say "Solara"
         print("Say 'Solara' to start recording your question")
@@ -62,11 +69,17 @@ def main():
                         response = generate_response(text)
                         print(f"GPT-3 says: {response}")
 
-                        #Read response using text-to-speech
+                        # Read response using text-to-speech
                         speak_text(response)
 
+                        # Create a copy of the input.wav file and move it to "audio_inputs" directory
+                        timestamp = time.strftime("%Y%m%d-%H%M%S")
+                        new_filename = os.path.join(audio_inputs_dir, f"input_{timestamp}.wav")
+                        shutil.copyfile(filename, new_filename)
+                        print(f"Copy of input.wav created: {new_filename}")
+
             except Exception as e:
-                print("An error ocurred: {}".format(e))
+                print("An error occurred: {}".format(e))
 
 if __name__ == "__main__":
     main()
