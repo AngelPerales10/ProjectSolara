@@ -4,10 +4,10 @@ An AI assistant that is also able to feed the media someone partakes in order to
 ## Current working features:
 
 ### Core Features:
-OpenAI API connectivity
-Recording voice to change to text
-Text sent to OpenAI to communicate with GPT3
-GPT3 response vocalized using Google text to speech
+- OpenAI API connectivity
+- Recording voice to change to text
+- Text sent to OpenAI to communicate with GPT3
+- GPT3 response vocalized using Google text to speech
 
 ### Additional Features:
 Audio Recordings saved to audio_inputs file to store audio data. 
