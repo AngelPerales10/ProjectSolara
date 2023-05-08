@@ -6,7 +6,7 @@ import shutil
 import os
 
 # Set OpenAI API key goes here
-openai.api_key = "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"
+openai.api_key = ""
 
 # Initialize the text-to-speech engine
 engine = pyttsx3.init()
